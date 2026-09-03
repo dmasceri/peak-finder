@@ -8,7 +8,7 @@ The question was whether free Sentinel-2 imagery could show where breaking has c
 
 ### 1. Too few scenes ever catch the outer bar breaking
 
-Wrightsville has an outer bar that only breaks at low tide with swell, and an inner bar that foams at every tide. Sentinel-2 passes at a fixed time, about 11:48 am local, so the tide stage at overpass drifts through the lunar cycle and the swell that makes the outer bar break arrives with the clouds.
+Wrightsville has two bars. At low tide both break, outside and inside, even on small days. At high tide the inside breaks and the outer bar only shows on large days. The outer bar is the one that matters, so a scene is only useful near low tide with some swell, or at high tide with real size. Sentinel-2 passes at a fixed time, about 11:48 am local, so the tide stage at overpass drifts through the lunar cycle, and the size that shows the outer bar at high tide arrives with the clouds.
 
 Joined against NOAA tide predictions (station 8658163) and Open-Meteo marine hindcast, the 18 months of low-cloud scenes over the pilot box break down like this:
 
@@ -16,17 +16,19 @@ Joined against NOAA tide predictions (station 8658163) and Open-Meteo marine hin
 |---|---|
 | Low-cloud scene dates | 75 |
 | Within 2 hours of low tide at overpass | 24 |
-| Wave height at least 0.8 m at overpass | 9 |
-| Both low tide and at least 0.8 m | 2 |
-| Both, with at least 1.0 m | 1 |
+| Of those, wave height at least 0.5 m (a small but real day) | 13 |
+| Of those, wave height at least 0.8 m | 2 |
+| Within 2 hours of high tide at overpass | 24 |
+| Of those, wave height at least 1.0 m (large enough to break outside) | 1 |
+| Usable under either rule | 14 |
 
-Two usable scenes in 18 months. The pilot's own kill threshold was fewer than about one usable scene a month. Full inventory in `scenes_wb_2025-03_to_2026-09.csv`.
+Fourteen candidate scenes in 18 months, under one a month, and eleven of them on days of 0.5 to 0.7 m where the outer line is thin. The pilot's own kill threshold was fewer than about one usable scene a month. Full inventory in `scenes_wb_2025-03_to_2026-09.csv`, with the rule applied per scene.
 
 Tile-level cloud cover is also a poor filter: 7 of the 16 most recent "clean" tiles had clouds sitting over the island (image 01).
 
 ### 2. The foam signal is the inner bar, not the outer bar
 
-The one dead-low-tide scene in the summer batch (June 13, 2026) showed a broad bright band along the whole beach: shorebreak and inner-bar foam at low water. That band says nothing about the outer bar, and a foam index at 10 m would mostly measure how foamy the inside is (image 02). Cross-shore masking could separate the two, since the outer bar sits 10 to 20 pixels offshore, but that fixes contamination, not the scene count.
+At low tide the inside and outside both break, and the inside throws far more foam. The one dead-low-tide scene in the summer batch (June 13, 2026) showed a broad bright band along the whole beach with no separable outer line: shorebreak and inner-bar foam at low water, merging with whatever the outside was doing. A foam index at 10 m would mostly measure how foamy the inside is (image 02). Cross-shore masking could separate the two, since the outer bar sits 10 to 20 pixels offshore, but that fixes contamination, not the scene count.
 
 ### 3. Ten-meter pixels cannot resolve a peak even at a world-class point
 
